@@ -10,14 +10,38 @@ const questions = [
         correct: "David",
     },
     {
-        title: "What is God's last name?",
-        answers: ["Smith", "Angel", "Blaine"],
-        correct: "Smith",
+        title: "Where Was David Blaine Born?",
+        answers: ["New Jersey", "New York", "California"],
+        correct: "New York",
+    },
+    {
+        title: "What is color is David Blaine's Hair?",
+        answers: ["Purple", "Black", "Brown"],
+        correct: "Brown",
+    },
+    {
+        title: "How old is David Blaine?",
+        answers: ["38", "48", "44"],
+        correct: "48",
+    },
+    {
+        title: "What is David Blaine Actual Last Name?",
+        answers: ["Perez", "White", "Blaine"],
+        correct: "White",
+    },
+    {
+        title: "Is David Blaine the Greatest Magician Alive?",
+        answers: ["Yes", "No"],
+        correct: "Yes",
     },
 ];
+const scoreBtn = document.getElementById("initials");
+
+let score = 0;
 let questionIndex = 0;
 let timerCount = 20;
 let isWin = false;
+
 // Functions
 function startGame() {
     // clear out previous questions
@@ -42,6 +66,10 @@ function answerClick() {
     if (chosenAnswer === questions[questionIndex].correct) {
         // let user know they got the right answer
         alert("You Somehow Guessed The Right Answer");
+        // add time to timer
+        timerCount = timerCount + 2;
+
+        score = score + 2;
         // move to next question or end game
         questionIndex++;
         if (questions.length > questionIndex) {
@@ -53,13 +81,13 @@ function answerClick() {
         // let user know they were wrong
         alert("WRONG");
         // TODO subtract time from timer
+        timerCount = timerCount - 2;
+
+        score = score - 2;
     }
 }
+
 // End quiz
-function endGame() {
-    isWin = true;
-    alert("Game Over, you suck");
-}
 
 // set timer
 function startTimer() {
@@ -74,8 +102,10 @@ function startTimer() {
             if (isWin && timerCount > 0) {
                 // Clears interval and stops timer
                 clearInterval(timer);
-                alert(timerCount);
-
+                alert("You Win!");
+                let initials = prompt(`Your Score Is ${score}! Enter Your initials Here`);
+                localStorage.setItem("playerScore", score);
+                localStorage.setItem("initials", initials);
                 // winGame();
             }
         }
@@ -88,6 +118,13 @@ function startTimer() {
         }
     }, 1000);
 }
+function endGame() {
+    isWin = true;
+}
 // Save high score
+function displayScores() {
+    localStorage.getItem("playerScore");
+    localStorage.getItem("initials");
+}
 // Initialization- start
 startBtn.addEventListener("click", startTimer);
