@@ -72,10 +72,6 @@ function startGame() {
     });
 }
 
-function resetQuiz() {
-    // localStorage.clear();
-    location.reload();
-}
 // Answer click function
 function answerClick() {
     // Determine the answer the user chose
@@ -138,24 +134,28 @@ function startTimer() {
         }
     }, 1000);
     // displayScores();
-}
-function endGame() {
-    isWin = true;
-}
-// Save high score
+    // Save high score
 
-function checkHighScore(score) {
-    const highScoreString = localStorage.getItem(highScores);
-    checkHighScore(scoreTable.score);
-    const highScores = JSON.parse(highScoreString) || [];
-    const lowestScore = highScores[noOfHighScores - 1]?.score ?? 0;
-    if (score > lowestScore) {
-        saveHighScore(score, highScores); // TODO
-        highScoreUl.appendChild(newLi);
-        showHighScores(); // TODO
+    function checkHighScore(score) {
+        const highScoreString = localStorage.getItem(highScores);
+        checkHighScore(scoreTable.score);
+        const highScores = JSON.parse(highScoreString) || [];
+        const lowestScore = highScores[noOfHighScores - 1]?.score ?? 0;
+        if (score > lowestScore) {
+            saveHighScore(score, highScores); // TODO
+            highScoreUl.appendChild(newLi);
+            showHighScores(); // TODO
+        }
+    }
+    function endGame() {
+        isWin = true;
     }
 }
 
+function resetQuiz() {
+    // localStorage.clear();
+    location.reload();
+}
 // Initialization- start
 startBtn.addEventListener("click", startTimer);
 resetBtn.addEventListener("click", resetQuiz);
