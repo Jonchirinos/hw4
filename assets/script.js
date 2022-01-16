@@ -9,7 +9,8 @@ const scoreTable = document.querySelector(".scoreTable");
 const scoreBtn = document.getElementById("score");
 const initialBtn = document.getElementById("initials");
 const noOfHighScores = 10;
-const highScores = "highScores";
+const highScoreList = document.getElementById("high-Scores");
+const highScores = [];
 // const resetQuiz = document.getElement("#reset");
 const questions = [
     // {
@@ -43,7 +44,6 @@ const questions = [
         correct: "Yes",
     },
 ];
-
 
 let score = 0;
 let questionIndex = 0;
@@ -119,11 +119,12 @@ function startTimer() {
                 clearInterval(timer);
                 alert("You Win!");
                 let initials = prompt(`Your Score Is ${score}! Enter Your initials Here`);
-                const newScore = {score, initials};
+                const newScore = { score, initials };
                 highScores.push(newScore);
-                highScores.sort((a,b) => b.score - a.score);
-                highScores.splice(noOfHighScores)
+                highScores.sort((a, b) => b.score - a.score);
+                highScores.splice(noOfHighScores);
                 localStorage.setItem(score, initials, JSON.stringify(highScores));
+                endGame();
                 // winGame();
             }
         }
@@ -135,7 +136,7 @@ function startTimer() {
             alert("You lost!");
         }
     }, 1000);
-    displayScores();
+    // displayScores();
 }
 function endGame() {
     isWin = true;
@@ -145,29 +146,17 @@ function endGame() {
 function checkHighScore(score) {
     const highScoreString = localStorage.getItem(highScores);
     const highScores = JSON.parse(highScoreString) || [];
-    const lowestScore = highScores[noOfHighScores — 1] ? .score ?? 0;
-}
+    const lowestScore = highScores[noOfHighScores - 1]?.score ?? 0;
     if (score > lowestScore) {
         saveHighScore(score, highScores); // TODO
         showHighScores(); // TODO
-      }
-function endGame() {
-    isWin = true;
-    checkHighScore(scoreTable.score);
+    }
+    function endGame() {
+        isWin = true;
+        checkHighScore(scoreTable.score);
+    }
 }
-
-const highScoreList = document.getElementById(highScores);
-
-highScoreList.innerHTML = highScores.map((score) => 
-  `<li>${score.score} - ${score.name}`
-);
-// function clearScores() {
-//     highScore.splice(0, highScore.length);
-//     localStorage.setItem("highScores", JSON.stringify(highScore));
-//     populateTable();
-// }
 
 // Initialization- start
 startBtn.addEventListener("click", startTimer);
 resetBtn.addEventListener("click", resetQuiz);
-// endGame();
