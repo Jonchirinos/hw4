@@ -120,13 +120,16 @@ function startTimer() {
                 // clearInterval(timer);
                 alert("You Win!");
                 let initials = prompt(`Your Score Is ${score}! Enter Your initials Here`);
-                const userScore = {
-                player: initials,
-                score: timerCount, 
-                };
-                let allScores = JSON.parse(localStorage.getItem("highScores") || [];
-                allScores.push(userScore);
-                localStorage.setItem("highScores", JSON.stringify(allScores));
+                const userScore = [
+                    {
+                        player: initials,
+                    },
+                ];
+                JSON.stringify(localStorage.setItem("highScores", timerCount));
+                JSON.stringify(localStorage.setItem("initials", initials));
+                // checkHighScore();
+                // allScores.push(userScore);
+                // localStorage.setItem("highScores", JSON.stringify(allScores));
                 clearInterval(timer);
                 // winGame();
             }
@@ -141,24 +144,28 @@ function startTimer() {
         }
     }, 1000);
 }
-    // Save high score
-    function checkHighScore() {
-        let allScores = JSON.parse(localStorage.getItem("highScores")) || [];
-        document.getElementById("beatScore").innerHTML = "";
-        if (allScores.length === 0) {
-            document.getElementById("li").innerHTML = "No new highscore"
-        } else {
-            allScores.sortOn("score")
-            allScores.forEach((score) => {
-                document.getElementById("li").innerHTML += `<li>${score.player}: ${score.score}</li>`;
-            });
-        }
+// Save high score
+function checkHighScore() {
+    let userScore = JSON.parse(localStorage.getItem("highScores")) || [];
+    let allScore = localStorage.getItem("initials") || [];
+    console.log(userScore);
+    document.getElementById("li").innerHTML = "";
+    if (userScore.length === 0) {
+        document.getElementById("li").innerHTML = "No new highscore";
+    } else {
+        document.getElementById("li").innerHTML = `${userScore}: ${allScore}`;
+        // userScore.sortOn("score");
+        // userScore.forEach((score) => {
+        //     document.getElementById("li").innerHTML += `<li>${score.player}: ${score.score}</li>`;
+        // });
+    }
 }
 
 function resetQuiz() {
     // localStorage.clear();
     location.reload();
 }
+checkHighScore();
 // Initialization- start
 startBtn.addEventListener("click", startTimer);
 resetBtn.addEventListener("click", resetQuiz);
