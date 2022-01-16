@@ -112,7 +112,7 @@ function startTimer() {
                 // clearInterval(timer);
                 alert("You Win!");
                 let initials = prompt(`Your Score Is ${score}! Enter Your initials Here`);
-                const userScore = [
+                let userScore = [
                     {
                         player: initials,
                     },
@@ -139,19 +139,17 @@ function startTimer() {
 // Save high score
 function checkHighScore(event) {
     let userScore = JSON.parse(localStorage.getItem("highScores")) || [];
-    let allScore = localStorage.getItem("initials") || [];
+    let hsInitials = localStorage.getItem("initials") || [];
     console.log(userScore);
     document.getElementById("li").innerHTML = "";
     if (userScore.length === 0) {
         document.getElementById("li").innerHTML = "No new High Score";
     } else {
         // sort;
-        document.getElementById("li").innerHTML = `${allScore} had a high score of ${userScore}! `;
+        document.getElementById("li").innerHTML = `${hsInitials} had a high score of ${userScore}! `;
 
         // userScore.sortOn("score");
-        // userScore.forEach((score) => {
-        //     document.getElementById("li").innerHTML += `<li>${score.player}: ${score.score}</li>`;
-        // });
+        // userScore.forEach(() => {});
     }
 }
 
