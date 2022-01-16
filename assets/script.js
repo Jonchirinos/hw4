@@ -133,9 +133,8 @@ function startTimer() {
             alert("You lost!");
         }
     }, 1000);
-    // displayScores();
-    // Save high score
 
+    // Save high score
     function checkHighScore(score) {
         const highScoreString = localStorage.getItem(highScores);
         checkHighScore(scoreTable.score);
