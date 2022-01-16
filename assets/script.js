@@ -5,14 +5,6 @@ const resetBtn = document.getElementById("reset");
 const questionDiv = document.getElementById("question");
 const answersDiv = document.getElementById("answers");
 const timerElement = document.getElementById("timer");
-const scoreTable = document.querySelector(".scoreTable");
-const scoreBtn = document.getElementById("score");
-const initialBtn = document.getElementById("initials");
-const noOfHighScores = 10;
-const highScoreUl = document.getElementById("high-Scores");
-const newLi = document.createElement("li");
-const highScores = [];
-// const resetQuiz = document.getElement("#reset");
 const questions = [
     // {
     //     title: "What is David Blaine's first name?",
@@ -127,7 +119,7 @@ function startTimer() {
                 ];
                 JSON.stringify(localStorage.setItem("highScores", timerCount));
                 JSON.stringify(localStorage.setItem("initials", initials));
-                // checkHighScore();
+                checkHighScore();
                 // allScores.push(userScore);
                 // localStorage.setItem("highScores", JSON.stringify(allScores));
                 clearInterval(timer);
@@ -151,9 +143,11 @@ function checkHighScore(event) {
     console.log(userScore);
     document.getElementById("li").innerHTML = "";
     if (userScore.length === 0) {
-        document.getElementById("li").innerHTML = "No new highscore";
+        document.getElementById("li").innerHTML = "No new High Score";
     } else {
+        // sort;
         document.getElementById("li").innerHTML = `${allScore} had a high score of ${userScore}! `;
+
         // userScore.sortOn("score");
         // userScore.forEach((score) => {
         //     document.getElementById("li").innerHTML += `<li>${score.player}: ${score.score}</li>`;
