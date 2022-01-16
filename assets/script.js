@@ -145,7 +145,7 @@ function startTimer() {
     }, 1000);
 }
 // Save high score
-function checkHighScore() {
+function checkHighScore(event) {
     let userScore = JSON.parse(localStorage.getItem("highScores")) || [];
     let allScore = localStorage.getItem("initials") || [];
     console.log(userScore);
@@ -153,7 +153,7 @@ function checkHighScore() {
     if (userScore.length === 0) {
         document.getElementById("li").innerHTML = "No new highscore";
     } else {
-        document.getElementById("li").innerHTML = `${userScore}: ${allScore}`;
+        document.getElementById("li").innerHTML = `${allScore} had a high score of ${userScore}! `;
         // userScore.sortOn("score");
         // userScore.forEach((score) => {
         //     document.getElementById("li").innerHTML += `<li>${score.player}: ${score.score}</li>`;
