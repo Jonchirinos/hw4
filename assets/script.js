@@ -123,6 +123,7 @@ function startTimer() {
                 // allScores.push(userScore);
                 // localStorage.setItem("highScores", JSON.stringify(allScores));
                 clearInterval(timer);
+                // userScore();
                 // winGame();
             }
         }
@@ -137,7 +138,7 @@ function startTimer() {
     }, 1000);
 }
 // Save high score
-function checkHighScore(event) {
+function checkHighScore() {
     let userScore = JSON.parse(localStorage.getItem("highScores")) || [];
     let hsInitials = localStorage.getItem("initials") || [];
     console.log(userScore);
@@ -145,19 +146,30 @@ function checkHighScore(event) {
     if (userScore.length === 0) {
         document.getElementById("li").innerHTML = "No new High Score";
     } else {
-        // sort;
-        document.getElementById("li").innerHTML = `${hsInitials} had a high score of ${userScore}! `;
-
-        // userScore.sortOn("score");
-        // userScore.forEach(() => {});
+        highScore.sortOn(userScore);
+        highScore.forEach(() => {
+            document.getElementById("li").innerHTML = `${hsInitials} had a high score of ${userScore}! `;
+        });
     }
 }
+
+Array.prototype.sortOn = function (key) {
+    this.sort(function (a, b) {
+        if (a[key] > b[key]) {
+            return -1;
+        } else if (a[key] < b[key]) {
+            return 1;
+        }
+        return 0;
+    });
+};
 
 function resetQuiz() {
     // localStorage.clear();
     location.reload();
 }
 checkHighScore();
+// userScore();
 // Initialization- start
 startBtn.addEventListener("click", startTimer);
 resetBtn.addEventListener("click", resetQuiz);
