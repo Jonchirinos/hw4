@@ -5,6 +5,7 @@ const questionDiv = document.getElementById("question");
 const answersDiv = document.getElementById("answers");
 const timerElement = document.getElementById("timer");
 const scoreTable = document.getElementById("scoreTable");
+const scoreBtn = document.getElementById("score");
 // const resetQuiz = document.getElement("#reset");
 const questions = [
     // {
@@ -38,13 +39,14 @@ const questions = [
         correct: "Yes",
     },
 ];
-const scoreBtn = document.getElementById("initials");
+const initialBtn = document.getElementById("initials");
 // let shuffledQuestions, questionDiv;
 let score = 0;
 let questionIndex = 0;
 let timerCount = 20;
 let isWin = false;
 let initials = "";
+let highScore = [];
 // Functions
 function startGame() {
     onClick = startBtn.style.visibility = "hidden";
@@ -134,6 +136,12 @@ function endGame() {
 
 function displayScores(event) {
     event.preventDefault();
+    let initials = localStorage.getItem("initials");
+    let initialsElement = document.getElementById("initialsDiv");
+    initialsElement.value = initials;
+    let score = localStorage.getItem("score");
+    let scoreElement = document.getElementById("scoreDiv");
+    scoreElement.value = score;
 
     const highScores = JSON.parse(window.localStorage.getItem("playerScore", "initials")) || [];
     console.log(scoreBtn);
@@ -150,11 +158,11 @@ function displayScores(event) {
     }
 }
 
-function clearScores() {
-    highScore.splice(0, highScore.length);
-    localStorage.setItem("highScores", JSON.stringify(highScore));
-    populateTable();
-}
+// function clearScores() {
+//     highScore.splice(0, highScore.length);
+//     localStorage.setItem("highScores", JSON.stringify(highScore));
+//     populateTable();
+// }
 
 // Initialization- start
 startBtn.addEventListener("click", startTimer);
