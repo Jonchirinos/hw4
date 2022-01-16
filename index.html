@@ -16,10 +16,21 @@
         <div id="timer">Timer</div>
         <!-- Questions and Answers -->
         <h2 id="question"></h2>
-        <div id="answers">Question</div>
+        <div id="answers" class="btn-grid">Question
+            <button class="btn">Answer 1</button>
+            <button class="btn">Answer 2</button>
+            <button class="btn">Answer 3</button>
+        </div>
         <br>
-        <button id="start">Start Quiz</button>
-        <button id="restart">Restart Quiz</button>
+        <button id="start" class="controls">Start Quiz</button>
+        <button id="reset" class="controls">Restart Quiz</button>
+        <div class="playerScore initials">
+            <h2>Top 5 clickers</h2>
+            <h3>(on this device)</h3>
+            <button id="reset">Clear</button>
+            <table id="scoreTable" class="highScores">
+            </table>
+        </div>
     </div>
     <script src="./assets/script.js"></script>
 </body>
