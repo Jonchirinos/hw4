@@ -9,7 +9,8 @@ const scoreTable = document.querySelector(".scoreTable");
 const scoreBtn = document.getElementById("score");
 const initialBtn = document.getElementById("initials");
 const noOfHighScores = 10;
-const highScoreList = document.getElementById("high-Scores");
+const highScoreUl = document.getElementById("high-Scores");
+const newLi = document.createElement("li");
 const highScores = [];
 // const resetQuiz = document.getElement("#reset");
 const questions = [
@@ -145,15 +146,13 @@ function endGame() {
 
 function checkHighScore(score) {
     const highScoreString = localStorage.getItem(highScores);
+    checkHighScore(scoreTable.score);
     const highScores = JSON.parse(highScoreString) || [];
     const lowestScore = highScores[noOfHighScores - 1]?.score ?? 0;
     if (score > lowestScore) {
         saveHighScore(score, highScores); // TODO
+        highScoreUl.appendChild(newLi);
         showHighScores(); // TODO
-    }
-    function endGame() {
-        isWin = true;
-        checkHighScore(scoreTable.score);
     }
 }
 
