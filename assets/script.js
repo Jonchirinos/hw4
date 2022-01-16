@@ -1,11 +1,15 @@
 // Global Variables
+
 const startBtn = document.getElementById("start");
 const resetBtn = document.getElementById("reset");
 const questionDiv = document.getElementById("question");
 const answersDiv = document.getElementById("answers");
 const timerElement = document.getElementById("timer");
-const scoreTable = document.getElementById("scoreTable");
+const scoreTable = document.querySelector(".scoreTable");
 const scoreBtn = document.getElementById("score");
+const initialBtn = document.getElementById("initials");
+const noOfHighScores = 10;
+const highScores = "highScores";
 // const resetQuiz = document.getElement("#reset");
 const questions = [
     // {
@@ -39,8 +43,8 @@ const questions = [
         correct: "Yes",
     },
 ];
-const initialBtn = document.getElementById("initials");
-// let shuffledQuestions, questionDiv;
+
+
 let score = 0;
 let questionIndex = 0;
 let timerCount = 20;
@@ -115,8 +119,11 @@ function startTimer() {
                 clearInterval(timer);
                 alert("You Win!");
                 let initials = prompt(`Your Score Is ${score}! Enter Your initials Here`);
-                localStorage.setItem("playerScore", score);
-                localStorage.setItem("initials", initials);
+                const newScore = {score, initials};
+                highScores.push(newScore);
+                highScores.sort((a,b) => b.score - a.score);
+                highScores.splice(noOfHighScores)
+                localStorage.setItem(score, initials, JSON.stringify(highScores));
                 // winGame();
             }
         }
@@ -128,36 +135,32 @@ function startTimer() {
             alert("You lost!");
         }
     }, 1000);
+    displayScores();
 }
 function endGame() {
     isWin = true;
 }
 // Save high score
 
-function displayScores(event) {
-    event.preventDefault();
-    let initials = localStorage.getItem("initials");
-    let initialsElement = document.getElementById("initialsDiv");
-    initialsElement.value = initials;
-    let score = localStorage.getItem("score");
-    let scoreElement = document.getElementById("scoreDiv");
-    scoreElement.value = score;
-
-    const highScores = JSON.parse(window.localStorage.getItem("playerScore", "initials")) || [];
-    console.log(scoreBtn);
-    // const highScore = document.querySelector(".scoreTable");
-    highScores
-        .map(() => {
-            return `<li class="highScores">${score} ${initials}</li>`;
-        })
-        .join("");
-    if (!timerCount) {
-        peep();
-    } else {
-        checkScore();
-    }
+function checkHighScore(score) {
+    const highScoreString = localStorage.getItem(highScores);
+    const highScores = JSON.parse(highScoreString) || [];
+    const lowestScore = highScores[noOfHighScores — 1] ? .score ?? 0;
+}
+    if (score > lowestScore) {
+        saveHighScore(score, highScores); // TODO
+        showHighScores(); // TODO
+      }
+function endGame() {
+    isWin = true;
+    checkHighScore(scoreTable.score);
 }
 
+const highScoreList = document.getElementById(highScores);
+
+highScoreList.innerHTML = highScores.map((score) => 
+  `<li>${score.score} - ${score.name}`
+);
 // function clearScores() {
 //     highScore.splice(0, highScore.length);
 //     localStorage.setItem("highScores", JSON.stringify(highScore));
@@ -167,3 +170,4 @@ function displayScores(event) {
 // Initialization- start
 startBtn.addEventListener("click", startTimer);
 resetBtn.addEventListener("click", resetQuiz);
+// endGame();

@@ -62,6 +62,10 @@ body {
 .hide {
     display: none;
 }
+
+.highScores {
+    text-align: left;
+}
 /* .btn-hide {
     display: none;
 } */
