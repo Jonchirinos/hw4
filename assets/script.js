@@ -101,6 +101,10 @@ function answerClick() {
     }
 }
 
+function endGame() {
+    isWin = true;
+}
+
 // set timer
 function startTimer() {
     // The setTimer function starts and stops the timer and triggers winGame() and loseGame()
@@ -113,15 +117,17 @@ function startTimer() {
             // Tests if win condition is met
             if (isWin && timerCount > 0) {
                 // Clears interval and stops timer
-                clearInterval(timer);
+                // clearInterval(timer);
                 alert("You Win!");
                 let initials = prompt(`Your Score Is ${score}! Enter Your initials Here`);
-                const newScore = { score, initials };
-                highScores.push(newScore);
-                highScores.sort((a, b) => b.score - a.score);
-                highScores.splice(noOfHighScores);
-                localStorage.setItem(score, initials, JSON.stringify(highScores));
-                endGame();
+                const userScore = {
+                player: initials,
+                score: timerCount, 
+                };
+                let allScores = JSON.parse(localStorage.getItem("highScores") || [];
+                allScores.push(userScore);
+                localStorage.setItem("highScores", JSON.stringify(allScores));
+                clearInterval(timer);
                 // winGame();
             }
         }
@@ -131,24 +137,22 @@ function startTimer() {
             clearInterval(timer);
             // loseGame();
             alert("You lost!");
+            endGame();
         }
     }, 1000);
-
+}
     // Save high score
-    function checkHighScore(score) {
-        const highScoreString = localStorage.getItem(highScores);
-        checkHighScore(scoreTable.score);
-        const highScores = JSON.parse(highScoreString) || [];
-        const lowestScore = highScores[noOfHighScores - 1]?.score ?? 0;
-        if (score > lowestScore) {
-            saveHighScore(score, highScores); // TODO
-            highScoreUl.appendChild(newLi);
-            showHighScores(); // TODO
+    function checkHighScore() {
+        let allScores = JSON.parse(localStorage.getItem("highScores")) || [];
+        document.getElementById("beatScore").innerHTML = "";
+        if (allScores.length === 0) {
+            document.getElementById("li").innerHTML = "No new highscore"
+        } else {
+            allScores.sortOn("score")
+            allScores.forEach((score) => {
+                document.getElementById("li").innerHTML += `<li>${score.player}: ${score.score}</li>`;
+            });
         }
-    }
-    function endGame() {
-        isWin = true;
-    }
 }
 
 function resetQuiz() {
