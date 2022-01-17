@@ -1,5 +1,7 @@
 // Global Variables
 
+const restart = document.getElementById("restart");
+const highContainer = document.getElementById("high-container");
 const startBtn = document.getElementById("start");
 const resetBtn = document.getElementById("reset");
 const questionDiv = document.getElementById("question");
@@ -7,26 +9,26 @@ const answersDiv = document.getElementById("answers");
 const timerElement = document.getElementById("timer");
 const scoreDiv = document.getElementById("high");
 const questions = [
-    // {
-    //     title: "What is David Blaine's first name?",
-    //     answers: ["David", "Chris", "Joe Exotic"],
-    //     correct: "David",
-    // },
-    // {
-    //     title: "Where Was David Blaine Born?",
-    //     answers: ["New Jersey", "New York", "California"],
-    //     correct: "New York",
-    // },
-    // {
-    //     title: "What is color is David Blaine's Hair?",
-    //     answers: ["Purple", "Black", "Brown"],
-    //     correct: "Brown",
-    // },
-    // {
-    //     title: "How old is David Blaine?",
-    //     answers: ["38", "48", "44"],
-    //     correct: "48",
-    // },
+    {
+        title: "What is David Blaine's first name?",
+        answers: ["David", "Chris", "Joe Exotic"],
+        correct: "David",
+    },
+    {
+        title: "Where Was David Blaine Born?",
+        answers: ["New Jersey", "New York", "California"],
+        correct: "New York",
+    },
+    {
+        title: "What is color is David Blaine's Hair?",
+        answers: ["Purple", "Black", "Brown"],
+        correct: "Brown",
+    },
+    {
+        title: "How old is David Blaine?",
+        answers: ["38", "48", "44"],
+        correct: "48",
+    },
     {
         title: "What is David Blaine Actual Last Name?",
         answers: ["Perez", "White", "Blaine"],
@@ -48,8 +50,6 @@ let initials = "";
 // Functions
 function startGame() {
     onClick = startBtn.style.visibility = "hidden";
-    // shuffledQuestions = questionDiv.ariaSort(() => Math.random() - 0.5);
-    // questionIndex = 0;
     // clear out previous questions
     answersDiv.textContent = "";
     // Show first question with answers
@@ -121,8 +121,6 @@ function startTimer() {
 
                 localStorage.setItem("windowStorage", JSON.stringify(highScore));
                 checkHighScore();
-                // allScores.push(userScore);
-
                 clearInterval(timer);
             }
         }
@@ -141,7 +139,7 @@ function checkHighScore() {
     let userScore = JSON.parse(localStorage.getItem("windowStorage")) || [];
     console.log(userScore);
     userScore.sort(compare);
-
+    scoreDiv.innerHTML = "";
     if (userScore.length === 0) {
         scoreDiv.innerHTML = "No new High Score";
     } else {
