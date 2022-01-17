@@ -130,7 +130,7 @@ function startTimer() {
             if (isWin && timerCount > 0) {
                 let highScore = JSON.parse(localStorage.getItem("windowStorage")) || [];
                 alert("You Win!");
-                // alerts user of victory followed by prompt asking for initials to append to highscore table
+                // alerts user of victory followed by prompt asking for initials to append to high score table
                 let initials = prompt(`Your Score Is ${score}! Enter Your initials Here`);
                 console.log(score);
                 // assigns initials and score to userScore
@@ -142,7 +142,7 @@ function startTimer() {
                 highScore.push(userScore);
                 // local storage for saving scores
                 localStorage.setItem("windowStorage", JSON.stringify(highScore));
-                // runs checkHighscore function to see where it should properly append
+                // runs checkHighScore function to see where it should properly append
                 checkHighScore();
                 // clears timer
                 clearInterval(timer);
