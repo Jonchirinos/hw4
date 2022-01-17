@@ -26,11 +26,11 @@ const questions = [
     //     answers: ["38", "48", "44"],
     //     correct: "48",
     // },
-    // {
-    //     title: "What is David Blaine Actual Last Name?",
-    //     answers: ["Perez", "White", "Blaine"],
-    //     correct: "White",
-    // },
+    {
+        title: "What is David Blaine Actual Last Name?",
+        answers: ["Perez", "White", "Blaine"],
+        correct: "White",
+    },
     {
         title: "Is David Blaine the Greatest Magician Alive?",
         answers: ["Yes", "No"],
@@ -43,7 +43,7 @@ let questionIndex = 0;
 let timerCount = 20;
 let isWin = false;
 let initials = "";
-let highScore = [];
+
 // Functions
 function startGame() {
     onClick = startBtn.style.visibility = "hidden";
@@ -110,15 +110,19 @@ function startTimer() {
             if (isWin && timerCount > 0) {
                 // Clears interval and stops timer
                 // clearInterval(timer);
+                let highScore = JSON.parse(localStorage.getItem("windowStorage")) || [];
                 alert("You Win!");
                 let initials = prompt(`Your Score Is ${score}! Enter Your initials Here`);
-                let userScore = [
-                    {
-                        player: initials,
-                    },
-                ];
-                JSON.stringify(localStorage.setItem("highScores", timerCount));
-                JSON.stringify(localStorage.setItem("initials", initials));
+                console.log(score);
+                let userScore = {
+                    initials: initials,
+                    score: score,
+                };
+                highScore.push(userScore);
+                // console.log(highScore);
+                // JSON.stringify(localStorage.setItem("highScores", timerCount));
+                // JSON.stringify(localStorage.setItem("initials", initials));
+                localStorage.setItem("windowStorage", JSON.stringify(highScore));
                 checkHighScore();
                 // allScores.push(userScore);
                 // localStorage.setItem("highScores", JSON.stringify(allScores));
@@ -139,16 +143,16 @@ function startTimer() {
 }
 // Save high score
 function checkHighScore() {
-    let userScore = JSON.parse(localStorage.getItem("highScores")) || [];
-    let hsInitials = localStorage.getItem("initials") || [];
+    let userScore = JSON.parse(localStorage.getItem("windowStorage")) || [];
+    // let hsInitials = localStorage.getItem("initials") || [];
     console.log(userScore);
     document.getElementById("li").innerHTML = "";
     if (userScore.length === 0) {
         document.getElementById("li").innerHTML = "No new High Score";
     } else {
-        highScore.sortOn(userScore);
-        highScore.forEach(() => {
-            document.getElementById("li").innerHTML = `${hsInitials} had a high score of ${userScore}! `;
+        // highScore.sortOn(userScore);
+        userScore.forEach((user) => {
+            document.getElementById("li").innerHTML = `${user.initials} had a high score of ${user.score}! `;
         });
     }
 }
