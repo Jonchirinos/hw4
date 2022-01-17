@@ -52,7 +52,7 @@ let score = 0;
 // Question index being pulled from
 let questionIndex = 0;
 //amount of time user has to answer questions
-let timerCount = 25;
+let timerCount = 40;
 let isWin = false;
 let initials = "";
 
@@ -95,7 +95,7 @@ function answerClick() {
         // move to next question or end game
         questionIndex++;
         // if question array is greater than 0, then the game starts
-        if (questions.length > questionIndex) {
+        if (questions.length > questionIndex && timerCount > 0) {
             startGame();
         } else {
             // if the question array reaches 0, end game
@@ -108,6 +108,14 @@ function answerClick() {
         timerCount = timerCount - 2;
         // subtract 2 points from score
         score = score - 2;
+        // Tests if time has run out
+        if (timerCount === 0) {
+            // Clears interval
+            clearInterval(timer);
+            // loseGame();
+            alert("You lost!");
+            endGame();
+        }
     }
 }
 
