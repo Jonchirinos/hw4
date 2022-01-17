@@ -5,6 +5,7 @@ const resetBtn = document.getElementById("reset");
 const questionDiv = document.getElementById("question");
 const answersDiv = document.getElementById("answers");
 const timerElement = document.getElementById("timer");
+const scoreDiv = document.getElementById("high");
 const questions = [
     // {
     //     title: "What is David Blaine's first name?",
@@ -108,8 +109,6 @@ function startTimer() {
         if (timerCount >= 0) {
             // Tests if win condition is met
             if (isWin && timerCount > 0) {
-                // Clears interval and stops timer
-                // clearInterval(timer);
                 let highScore = JSON.parse(localStorage.getItem("windowStorage")) || [];
                 alert("You Win!");
                 let initials = prompt(`Your Score Is ${score}! Enter Your initials Here`);
@@ -119,16 +118,12 @@ function startTimer() {
                     score: score,
                 };
                 highScore.push(userScore);
-                // console.log(highScore);
-                // JSON.stringify(localStorage.setItem("highScores", timerCount));
-                // JSON.stringify(localStorage.setItem("initials", initials));
+
                 localStorage.setItem("windowStorage", JSON.stringify(highScore));
                 checkHighScore();
                 // allScores.push(userScore);
-                // localStorage.setItem("highScores", JSON.stringify(allScores));
+
                 clearInterval(timer);
-                // userScore();
-                // winGame();
             }
         }
         // Tests if time has run out
@@ -144,17 +139,27 @@ function startTimer() {
 // Save high score
 function checkHighScore() {
     let userScore = JSON.parse(localStorage.getItem("windowStorage")) || [];
-    // let hsInitials = localStorage.getItem("initials") || [];
     console.log(userScore);
-    document.getElementById("li").innerHTML = "";
+    userScore.sort(compare);
+
     if (userScore.length === 0) {
-        document.getElementById("li").innerHTML = "No new High Score";
+        scoreDiv.innerHTML = "No new High Score";
     } else {
         // highScore.sortOn(userScore);
         userScore.forEach((user) => {
-            document.getElementById("li").innerHTML = `${user.initials} had a high score of ${user.score}! `;
+            scoreDiv.innerHTML += `<li>${user.initials} had a high score of ${user.score}!</li>`;
+            // checkHighScore();
         });
     }
+}
+function compare(a, b) {
+    if (a.score > b.score) {
+        return -1;
+    }
+    if (a.score < b.score) {
+        return 1;
+    }
+    return 0;
 }
 
 Array.prototype.sortOn = function (key) {
@@ -169,11 +174,11 @@ Array.prototype.sortOn = function (key) {
 };
 
 function resetQuiz() {
-    // localStorage.clear();
+    localStorage.clear();
     location.reload();
 }
 checkHighScore();
-// userScore();
+
 // Initialization- start
 startBtn.addEventListener("click", startTimer);
 resetBtn.addEventListener("click", resetQuiz);
