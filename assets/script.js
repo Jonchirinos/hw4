@@ -1,5 +1,6 @@
 // Global Variables
 
+//
 const restart = document.getElementById("restart");
 const highContainer = document.getElementById("high-container");
 const startBtn = document.getElementById("start");
@@ -72,7 +73,7 @@ function answerClick() {
     // verify to see if answer is correct
     if (chosenAnswer === questions[questionIndex].correct) {
         // let user know they got the right answer
-        alert("You Somehow Guessed The Right Answer");
+        alert("Magic!");
         // add time to timer
         timerCount = timerCount + 2;
 
@@ -86,8 +87,8 @@ function answerClick() {
         }
     } else {
         // let user know they were wrong
-        alert("WRONG");
-        // TODO subtract time from timer
+        alert("INCORRECT");
+        //subtract time from timer
         timerCount = timerCount - 2;
 
         score = score - 2;
@@ -159,17 +160,6 @@ function compare(a, b) {
     }
     return 0;
 }
-
-Array.prototype.sortOn = function (key) {
-    this.sort(function (a, b) {
-        if (a[key] > b[key]) {
-            return -1;
-        } else if (a[key] < b[key]) {
-            return 1;
-        }
-        return 0;
-    });
-};
 
 function resetQuiz() {
     localStorage.clear();

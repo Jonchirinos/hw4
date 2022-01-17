@@ -5,33 +5,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- link for the css -->
     <link rel="stylesheet" href="./assets/main.css">
-    <title>Document</title>
+    <!-- website title -->
+    <title>David Blaine Fan Club</title>
 </head>
 
 <body>
+    <!-- container for the questions, answers, timers, & high scores -->
     <div class="container">
-        <h1>Coding Quiz Challenge</h1>
-
+        <!-- title of the quiz -->
+        <h1>How Well Do You Know David Blaine?</h1>
+        <!--contains the timer for the quiz -->
         <div id="timer">Timer</div>
-        <!-- Questions and Answers -->
+        <!-- Questions appear on this tag -->
         <h2 id="question"></h2>
+        <!-- answer div  -->
         <div id="answers" class="btn-grid">Question
+            <!-- answer button -->
             <button class="btn">Answer 1</button>
+            <!-- answer button -->
             <button class="btn">Answer 2</button>
+            <!-- answer button -->
             <button class="btn">Answer 3</button>
         </div>
         <br>
+        <!-- star button -->
         <button id="start" class="controls">Start Quiz</button>
+        <!-- reset highscores button -->
         <button id="reset" class="controls">Reset Scores</button>
+        <!-- div containing highscore table -->
         <div class="playerScore initials">
+            <!-- title for the high score unordered list (<h2>) -->
             <h2>HIGH SCORES</h2>
+            <!-- container for the li tags that populate with names/scores -->
             <ul id="high-container">
+                <!-- li tag where initials and score appear from previous games-->
                 <li id="high"></li>
             </ul>
 
         </div>
     </div>
+    <!-- link for the Javascript -->
     <script src="./assets/script.js"></script>
 </body>
 
